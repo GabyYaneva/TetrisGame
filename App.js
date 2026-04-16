@@ -1,7 +1,6 @@
 import { useState,useEffect } from "react";
-import {View,Text,SafeAreaViewBase } from "react-native";
+import {View,Text, SafeAreaViewBase } from "react-native";
 import {Board} from "./src/components/Board";
-import {Controls} from "./src/components/Controls";
 import {TETROMINOS,BOARD_WIDTH,BOARD_HEIGHT} from "./src/constants/tetrominos";
 
 export default function App() {
@@ -45,12 +44,21 @@ row.forEach(
   }
 );
 
-return(
-  <SafeAreaViewBase>
-    <View>
-      <Text>Tetris</Text>
+return (
+  <SafeAreaView style={{ flex: 1, backgroundColor: '#000' }}>
+    <View style={{ alignItems: 'center', padding: 20 }}>
+      <Text style={{ color: '#fff', fontSize: 24, fontWeight: 'bold' }}>
+        Tetris
+      </Text>
+      <Text style={{ color: '#ff0', fontSize: 18 }}>
+        Score: {score}
+      </Text>
     </View>
-  </SafeAreaViewBase>
+    
+    <View style={{ alignItems: 'center' }}>
+      <Board grid={displayGrid} />
+    </View>
+  </SafeAreaView>
 );
       
 };
