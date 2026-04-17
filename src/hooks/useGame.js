@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { TETROMINOS, BOARD_WIDTH, BOARD_HEIGHT } from '../constants/tetrominos';
+import { useGameState } from './gameState';
 
 export const useGame = () => {
   const createEmptyGrid = () => 

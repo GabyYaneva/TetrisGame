@@ -17,7 +17,7 @@ const gameOver=useCallback(
     },[]
 );
 
-const resetGame=useCallback(
+const restartGame=useCallback(
     ()=>{
         setGameState('playing');
     },[]
@@ -42,10 +42,12 @@ const goToMenu=useCallback(
         isGameOver: gameState === 'gameover',
         startGame,
         gameOver,
-        resetGame,
+        restartGame,
         pauseGame,
-        goToMenus
+        goToMenu
 
     };
+
+
 
 };
