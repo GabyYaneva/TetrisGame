@@ -1,5 +1,6 @@
 import { useState,useEffect } from "react";
-import {View,Text, SafeAreaViewBase } from "react-native";
+import {View,Text, TouchableOpacity } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {Board} from "./src/components/Board";
 import {TETROMINOS,BOARD_WIDTH,BOARD_HEIGHT} from "./src/constants/tetrominos";
 
@@ -44,21 +45,96 @@ row.forEach(
   }
 );
 
+const movePiece=(direction)=>
+{
+  setCurrPiece(prev=>
+  (
+    {
+      ...prev,
+      x:prev.x+direction
+    }
+  )
+  );
+};
+
+const rotate=()=>
+{
+  const shape=Object.keys(TETROMINOS);
+  const currIndex=shape.findIndex(
+  s=>
+    TETROMINOS[s].shape===currPiece.tetromino.shape
+);
+const nextPiece=shape[(currIndex+1)%shape.length];
+
+setCurrPiece(
+  prev=>(
+    {
+      ...prev,
+      tetromino:TETROMINOS[nextPiece],
+      color:TETROMINOS[nextPiece].color
+    }
+  )
+);
+};
+
+const dropPiece=()=>{
+  setCurrPiece(
+    prev=>(
+      {
+        ...prev,
+        y:prev.y+1
+      }
+    )
+  );
+};
+
+useEffect(
+  ()=>
+  {
+const interval=setInterval(
+  ()=>
+  {
+    setCurrPiece(
+      prev=>
+      (
+        {
+          ...prev,
+          y:prev.y+1
+        }
+      )
+    );
+  },1000
+);
+
+return ()=> clearInterval(interval);
+  },[]
+);
+
+
 return (
-  <SafeAreaView style={{ flex: 1, backgroundColor: '#000' }}>
-    <View style={{ alignItems: 'center', padding: 20 }}>
-      <Text style={{ color: '#fff', fontSize: 24, fontWeight: 'bold' }}>
-        Tetris
-      </Text>
-      <Text style={{ color: '#ff0', fontSize: 18 }}>
-        Score: {score}
-      </Text>
-    </View>
-    
-    <View style={{ alignItems: 'center' }}>
-      <Board grid={displayGrid} />
-    </View>
-  </SafeAreaView>
+ <SafeAreaView>
+  <View>
+    <Text>Tetris</Text>
+    <Text>Score :{score}</Text>
+  </View>
+  <View>
+    <Board grid={displayGrid} />
+  </View>
+<View>
+  <TouchableOpacity onPress={()=>movePiece(-1)}>
+    <Text>←</Text>
+  </TouchableOpacity>
+  <TouchableOpacity>
+    <Text>↻</Text>
+  </TouchableOpacity>
+  <TouchableOpacity onPress={()=>movePiece(1)}> 
+    <Text>↓</Text>
+  </TouchableOpacity>
+  <TouchableOpacity onPress={()=>movePiece(1)}>
+    <Text>→</Text>
+  </TouchableOpacity>
+</View>
+ </SafeAreaView>
 );
       
 };
