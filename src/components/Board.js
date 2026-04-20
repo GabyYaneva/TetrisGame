@@ -3,22 +3,20 @@ import {View}  from "react-native";
 export const Board=({grid})=>
 {
     return(
-    <View>
+    <View className="bg-slate-950 p-2 rounded-lg">
     {
         grid.map(
             (row,rowIndex)=>
             (
                 <View key={rowIndex} 
-                style={{flexDirection:"row"}}>
+                className="flex-row">
     {
         row.map(
             (cell,cellIndex)=>
             (
                 <View
                 key={cellIndex}
-                style={{width:20,
-                height:20,
-                backgroundColor:cell?cell.color:'#5B07EC',}}
+                className={`w-6 h-6 m-0.5 ${cell? 'bg-blue-500':'bg-slate-700'}`}
                 />
             )
         )

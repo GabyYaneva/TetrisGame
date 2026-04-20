@@ -3,17 +3,13 @@ import {View} from 'react-native';
 export const Piece = ({tetromino})=>
 {
 return(
-     <View>
+     <View className="absolute ">
       {tetromino.shape.map((row, y) => (
-        <View key={y} style={{ flexDirection: 'row' }}>
+        <View key={y} className="flex-row">
           {row.map((cell, x) => (
             <View
               key={x}
-              style={{
-                width: 20,
-                height: 20,
-                backgroundColor: cell ? tetromino.color : 'transparent'
-              }}
+              className="w-6 h-6 m-0.5 ${cell ? 'bg-blue-500' : 'bg-slate-700'}"
             />
           ))}
         </View>
